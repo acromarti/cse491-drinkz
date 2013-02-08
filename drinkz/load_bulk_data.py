@@ -12,6 +12,18 @@ import csv                              # Python csv package
 
 from . import db                        # import from local package
 
+
+def data_reader(fp):
+
+	reader = csv.reader(fp)
+	x = []
+	for line in reader:
+        	if len(line) == 0 or line[0].startswith('#'):
+            		continue
+        
+        	(mfg, name, typ) = line
+        	yield line
+
 def load_bottle_types(fp):
     """
     Loads in data of the form manufacturer/liquor name/type from a CSV file.
@@ -22,17 +34,16 @@ def load_bottle_types(fp):
 
     Returns number of bottle types loaded
     """
-    reader = csv.reader(fp)
+    new_reader = data_reader(fp)
 
     x = []
     n = 0
-    for line in reader:
-        if line[0].startswith('#'):
-            continue
-        
-        (mfg, name, typ) = line
-        n += 1
-        db.add_bottle_type(mfg, name, typ)
+    for (mfg, name, typ) in new_reader:
+        try:
+		db.add_bottle_type(mfg, name, typ)
+        	n += 1
+	except ValueError:
+        	print 'failed to add bottle type to inventory, must have 3 			values per line'
 
     return n
 
@@ -49,12 +60,16 @@ def load_inventory(fp):
     Note that a LiquorMissing exception is raised if bottle_types_db does
     not contain the manufacturer and liquor name already.
     """
-    reader = csv.reader(fp)
+    new_reader = data_reader(fp)
 
     x = []
     n = 0
-    for (mfg, name, amount) in reader:
-        n += 1
-        db.add_to_inventory(mfg, name, amount)
+    for (mfg, name, amount) in new_reader:
+        try:
+		db.add_to_inventory(mfg, name, amount)
+        	n += 1
+	except db.LiquorMissing:
+        	print 'failed to add to inventory, must have 3 values per 			line'
 
     return n
+
