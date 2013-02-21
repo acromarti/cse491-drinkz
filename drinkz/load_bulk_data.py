@@ -18,6 +18,7 @@ def data_reader(fp):
 
 	reader = csv.reader(fp)
 	x = []
+	
 	for line in reader:
         	if len(line) == 0 or line[0].startswith('#'):
             		continue
