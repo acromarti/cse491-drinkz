@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import drinkz.db
 
 drinkz.db.add_bottle_type('Johnnie Walker', 'Black Label', 'blended scotch')
@@ -9,6 +10,7 @@ drinkz.db.add_to_inventory('Jack Daniels', 'Old No. 7', '2000 ml')
 drinkz.db.add_to_inventory('Jack Daniels', 'Old No. 7', '50 oz')
 
 different_list = set()
+
 
 print 'Manufacturer\tLiquor'
 print '------------\t------'
