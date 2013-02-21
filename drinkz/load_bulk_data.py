@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Module to load in bulk data from text files.
 """
@@ -20,6 +21,9 @@ def data_reader(fp):
 	for line in reader:
         	if len(line) == 0 or line[0].startswith('#'):
             		continue
+		      
+		if line[0].startswith(" "):
+			continue
         
         	(mfg, name, typ) = line
         	yield line
