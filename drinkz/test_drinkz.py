@@ -10,10 +10,9 @@ rules ;).
 import sys
 sys.path.insert(0, 'bin/') # allow _mypath to be loaded; @CTB hack hack hack
 
+from . import db, load_bulk_data
 from cStringIO import StringIO
 import imp
-
-from . import db, load_bulk_data
 
 def test_foo():
     # this test always passes; it's just to show you how it's done!
@@ -119,7 +118,7 @@ def test_get_liquor_amount_1():
     db.add_to_inventory('Johnnie Walker', 'Black Label', '1000 ml')
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
     print amount
-    assert amount == '1000.0 ml', amount
+    assert amount == '1000.0', amount
 
 def test_get_liquor_amount_2():
     db._reset_db()
@@ -131,7 +130,7 @@ def test_get_liquor_amount_2():
     n = load_bulk_data.load_inventory(fp)
 
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
-    assert amount == '1000.0 ml', amount
+    assert amount == '1000.0', amount
 
 
 def test_get_liquor_amount_3():
@@ -143,7 +142,7 @@ def test_get_liquor_amount_3():
     db.add_bottle_type('Johnnie Walker', 'Black Label', 'blended scotch')
     db.add_to_inventory('Johnnie Walker', 'Black Label', '1000 oz')
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
-    assert amount == '29573.5 ml', amount
+    assert amount == '29573.5', amount
 
 
 def test_get_liquor_amount_4():
@@ -159,7 +158,7 @@ def test_get_liquor_amount_4():
     n = load_bulk_data.load_inventory(fp)
 
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
-    assert amount == '29573.5 ml', amount
+    assert amount == '29573.5', amount
 
 def test_bulk_load_bottle_types_1():
     db._reset_db()
@@ -265,3 +264,50 @@ def test_get_liquor_inventory():
         x.append((mfg, liquor))
 
     assert x == [('Johnnie Walker', 'Black Label')], x
+    
+    
+    
+def test_get_liquor_amount_gallon():
+    db._reset_db()
+
+    db.add_bottle_type('Johnnie Walker', 'Black Label', 'blended scotch')
+    
+    data = "Johnnie Walker,Black Label,1 gallon"
+    fp = StringIO(data) # make this look like a file handle
+    n = load_bulk_data.load_inventory(fp)
+
+    amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
+    assert amount == 3785.41, amount
+    
+    
+def test_uniqify_inventory():
+    """
+Ensure that get_liquor_inventory doesn't return duplicates.
+"""
+    db._reset_db()
+
+    db.add_bottle_type('Johnnie Walker', 'Black Label', 'blended scotch')
+    db.add_to_inventory('Johnnie Walker', 'Black Label', '1000 ml')
+    db.add_to_inventory('Johnnie Walker', 'Black Label', '500 ml')
+    db.add_to_inventory('Johnnie Walker', 'Black Label', '25 ml')
+
+    uniq = set()
+    for mfg, liquor in db.get_liquor_inventory():
+        assert (mfg, liquor) not in uniq, "dup: %s, %s" % (mfg, liquor)
+        uniq.add((mfg, liquor))
+
+    assert len(uniq) == 1, "should only be one mfg/liquor in inventory"
+    
+    
+    
+def test_script_load_liquor_inventory():
+    db._reset_db()
+
+    scriptpath = 'bin/load-liquor-inventory'
+    module = imp.load_source('llt', scriptpath)
+    exit_code = module.main([scriptpath, 'test-data/bottle-types-data-1.txt',
+                             'test-data/inventory-data-1.txt'])
+
+    assert exit_code == 0, 'non zero exit code %s' % exit_code
+    amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
+    assert amount == 1234
