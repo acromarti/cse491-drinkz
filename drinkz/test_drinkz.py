@@ -174,6 +174,11 @@ def test_bulk_load_bottle_types_1():
 
 
 def test_bulk_load_bottle_types_2():
+   
+   # this test return n as 0 which makes the data not present in the bottle
+   # bottle type data base which makes x == 0
+   #handles commented out lines
+  
     db._reset_db()
     
 
@@ -188,6 +193,8 @@ def test_bulk_load_bottle_types_2():
 def test_bulk_load_bottle_types_3():
 
     #handles whitespace lines
+    # this test return n as 0 which makes the data not present in the bottle
+   # bottle type data base which makes x == 0
     db._reset_db()
 
     data = "         "
@@ -213,7 +220,9 @@ def test_bulk_load_bottle_types_4():
 
 def test_bulk_load_bottle_types_5():
 
-    #handles files with commented lines and whitespace lines 
+    #handles files with commented lines and whitespace lines
+    # this test return n as 1 because in the text file the first two lines are skipped 
+    # and the last line is readable which makes n and x == 1
     db._reset_db()
 
     fp = open('test-data/bottle-types-data-2.txt')
@@ -225,7 +234,10 @@ def test_bulk_load_bottle_types_5():
     
 def test_bulk_load_bottle_types_6():
 
-    #handles files with commented lines and whitespace lines 
+    #handles files with commented lines and whitespace lines
+    # this test return n as 1 because in the text file the last line is readable 
+    # and the first line is skipped which is the name of the bottle type that is checked
+    # si x == 0
     db._reset_db()
 
     fp = open('test-data/bottle-types-data-3.txt')
