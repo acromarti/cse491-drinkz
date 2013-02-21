@@ -1,8 +1,10 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 import sys
 import _mypath
 
 from drinkz.load_bulk_data import load_bottle_types, load_inventory
+
 
 def main(args):
    if len(args) != 2:
