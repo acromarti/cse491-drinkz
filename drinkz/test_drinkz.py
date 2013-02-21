@@ -18,6 +18,7 @@ from . import db, load_bulk_data
 def test_foo():
     # this test always passes; it's just to show you how it's done!
     print 'Note that output from passing tests is hidden'
+    print 'This always works'
 
 def test_add_bottle_type_1():
     print 'Note that output from failing tests is printed out!'
