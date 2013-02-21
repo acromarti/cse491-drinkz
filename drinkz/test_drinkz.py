@@ -219,8 +219,8 @@ def test_bulk_load_bottle_types_5():
     n = load_bulk_data.load_bottle_types(fp)
     x = db._check_bottle_type_exists('Johnnie Walker', 'Black Label')
     
-    assert x == 0, x
-    assert n == 0, n
+    assert x == 1, x
+    assert n == 1, n
 
 
 def test_script_load_bottle_types_1():
