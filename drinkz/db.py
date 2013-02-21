@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Database functionality for drinkz information.
 """
@@ -20,6 +21,7 @@ class LiquorMissing(Exception):
 def add_bottle_type(mfg, liquor, typ):
     "Add the given bottle type into the drinkz database."
     _bottle_types_db.append((mfg, liquor, typ))
+
 
 def _check_bottle_type_exists(mfg, liquor):
     for (m, l, _) in _bottle_types_db:
