@@ -3,19 +3,30 @@
 Database functionality for drinkz information.
 """
 
+# The reason I chose to implent a set was because usinset will take less code than a dictonary.  I can just pull
+# the ingredients using recipe.ingredients
+
+from recipes import Recipe
+
 # private singleton variables at module level
 _bottle_types_db = set([])
 _inventory_db = {}
+_recipes_db = set()
 
 def _reset_db():
     "A method only to be used during testing -- toss the existing db info."
-    global _bottle_types_db, _inventory_db
+    global _bottle_types_db, _inventory_db, _recipes_db
     _bottle_types_db = set([])
     _inventory_db = {}
+    _recipes_db = set()
+    
 
 # exceptions in Python inherit from Exception and generally don't need to
 # override any methods.
 class LiquorMissing(Exception):
+    pass
+  
+class IdenticalRecipeName(Exception):
     pass
 
 def add_bottle_type(mfg, liquor, typ):
@@ -38,7 +49,7 @@ def add_to_inventory(mfg, liquor, amount):
 
     # just add it to the inventory database as a tuple, for now.
     else:
-      diffAmount = make_ml(amount)
+      diffAmount = convert_to_ml(amount)
       
       if(mfg, liquor) in _inventory_db:
 	  _inventory_db[(mfg, liquor)] += diffAmount
@@ -78,16 +89,76 @@ def get_liquor_inventory():
         yield m, l
 
 
-def make_ml(amount):
+def convert_to_ml(amount):
   
-    result = 0;
+  #Converts to ml no matter the unit
+  
+    answer = 0;
 
     if("ml") in amount:
 	amount = amount.strip('ml')
-	result = float(amount)
+	answer = float(amount)
 	
     elif ("oz") in amount:
 	amount = amount.strip('oz')
-	result = float(amount) * 29.5735
+	answer = float(amount) * 29.5735
 	
-    return str(result)
+	
+    elif("gallon") in amount:
+	 amount = amount.strip('gallon')
+	 answer = float(amount) * 3785.41
+	 
+    elif("liter") in amount:
+	  amount = amount.strip('liter')
+	  answer = float(amount) * 1000
+    else:
+	  answer = 0
+	
+    return str(answer)
+    
+    
+    
+def check_inventory_for_type(typ):
+  # Checks the inventory to see if the type exists
+  #and return the whole amount of the type
+
+    maxAmount = 0;
+    
+    for (mfg, liquor, t) in _bottle_types_db:
+      
+      if (t == typ):
+	
+	  if (maxAmount < get_liquor_amount(mfg, liquor)):
+	    
+	      maxAmount = get_liquor_amount(mfg, liquor)
+	      
+    return maxAmount
+    
+def add_recipe(r):
+
+# Adds a recipe to the database
+  for recipe in _recipes_db:
+
+      if r.name == recipe.name:
+
+  	raise IdenticalRecipeName()
+
+  _recipes_db.add(r)    
+
+
+def get_recipe(name):
+
+  # Finds a recipe in the database
+   for recipe in _recipes_db:
+   
+      if name == recipe.name:
+
+  	return recipe
+  	
+   return None 
+
+
+def get_all_recipes():
+  #Get all recipes
+  
+  return list(_recipes_db)

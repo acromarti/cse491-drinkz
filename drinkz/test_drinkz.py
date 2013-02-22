@@ -277,7 +277,10 @@ def test_get_liquor_amount_gallon():
     n = load_bulk_data.load_inventory(fp)
 
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
-    assert amount == 3785.41, amount
+    
+    print amount
+    
+    assert amount == '3785.41', amount
     
     
 def test_uniqify_inventory():
@@ -303,11 +306,12 @@ Ensure that get_liquor_inventory doesn't return duplicates.
 def test_script_load_liquor_inventory():
     db._reset_db()
 
-    scriptpath = 'bin/load-liquor-inventory'
+    scriptpath = 'bin/load-liquor-inventory.py'
     module = imp.load_source('llt', scriptpath)
     exit_code = module.main([scriptpath, 'test-data/bottle-types-data-1.txt',
-                             'test-data/inventory-data-1.txt'])
+                             'test-data/inventory-data-4.txt'])
 
     assert exit_code == 0, 'non zero exit code %s' % exit_code
     amount = db.get_liquor_amount('Johnnie Walker', 'Black Label')
-    assert amount == 1234
+    print amount
+    assert amount == '1234.0'
