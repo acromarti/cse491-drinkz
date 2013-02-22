@@ -54,6 +54,7 @@ fp.close()
 
 #Recipers.html
 
+
 fp = open('html/recipes.html', w)
 display_recipes = db.get_all_recipes()
 recipe_str = "Recipes\n<ol>"
