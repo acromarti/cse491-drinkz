@@ -1,3 +1,4 @@
+
 # -*- coding: iso-8859-1 -*-
 """
 Tests basic recipe API.
@@ -7,15 +8,22 @@ import unittest
 from . import db, recipes
 
 class TestBasicRecipeStuff(unittest.TestCase):
+
     def setUp(self): # This is run once per test, before.
         db._reset_db()
 
     def tearDown(self): # This is run once per test, after.
+
+    def setUp(self):                    # This is run once per test, before.
+        db._reset_db()
+
+    def tearDown(self):                 # This is run once per test, after.
         pass
 
     def test_add_recipe_1(self):
         x = list(db.get_all_recipes())
         assert not x # should be no recipes
+        assert not x                    # should be no recipes
         
         r = recipes.Recipe('scotch on the rocks', [('blended scotch',
                                                    '4 oz')])
@@ -24,6 +32,7 @@ class TestBasicRecipeStuff(unittest.TestCase):
 
         x = list(db.get_all_recipes())
         assert len(x) == 1 # should be only one recipe
+        assert len(x) == 1              # should be only one recipe
         assert r in x
 
     def test_add_recipe_2(self):
@@ -38,6 +47,9 @@ class TestBasicRecipeStuff(unittest.TestCase):
         except db.IdenticalRecipeName:
             pass # success, we got an exception
 
+        except db.DuplicateRecipeName:
+            pass                        # success, we got an exception
+
     def test_get_recipe_1(self):
         r = recipes.Recipe('scotch on the rocks', [('blended scotch',
                                                    '4 oz')])
@@ -49,7 +61,11 @@ class TestBasicRecipeStuff(unittest.TestCase):
 
     def test_get_recipe_2(self):
         x = db.get_recipe('scotch on the rocks')
+
         assert not x, x # no such recipe
+
+        assert not x, x                    # no such recipe
+
 
 class TestIngredients(object):
     def setUp(self):
@@ -79,7 +95,9 @@ class TestIngredients(object):
                                             ('vermouth', '1.5 oz')])
 
         x = r.need_ingredients()
+
         print x
+
         assert not x, x
 
     def test_need_ingredients_3(self):
@@ -93,7 +111,10 @@ class TestIngredients(object):
         assert len(missing) == 1
 
         assert missing[0][0] == 'orange juice', missing
+
         assert round(missing[0][1], 1) == 177.4, missing # 6 oz in ml
+
+        assert round(missing[0][1], 1) == 177.4, missing   # 6 oz in ml
 
     def test_generic_replacement(self):
         r = recipes.Recipe('whiskey bath', [('blended scotch', '2 liter')])
@@ -119,6 +140,16 @@ class TestIngredients(object):
         # to allow mixing of bottles, in general, because that's
         # just icky. So we report back that we need at least half a liter
         # of blended scotch.
+        r = recipes.Recipe('whiskey bath', [('blended scotch', '5.5 liter')])
+
+        missing = r.need_ingredients()
+        assert missing == [('blended scotch', 500.0)]
+
+        # moonshine with Johnnie Walker Black Label.  But we don't want
+        # to allow mixing of bottles, in general, because that's
+        # just icky.  So we report back that we need at least half a liter
+        # of blended scotch.
+
         r = recipes.Recipe('whiskey bath', [('blended scotch', '5.5 liter')])
 
         missing = r.need_ingredients()
