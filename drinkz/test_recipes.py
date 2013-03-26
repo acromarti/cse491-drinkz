@@ -14,10 +14,10 @@ class TestBasicRecipeStuff(unittest.TestCase):
 
     def tearDown(self): # This is run once per test, after.
 
-    def setUp(self):                    # This is run once per test, before.
+     def setUp(self):    # This is run once per test, before.
         db._reset_db()
 
-    def tearDown(self):                 # This is run once per test, after.
+    def tearDown(self): # This is run once per test, after.
         pass
 
     def test_add_recipe_1(self):
@@ -154,3 +154,4 @@ class TestIngredients(object):
 
         missing = r.need_ingredients()
         assert missing == [('blended scotch', 500.0)]
+

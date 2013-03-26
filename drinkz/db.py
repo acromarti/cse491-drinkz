@@ -81,6 +81,7 @@ def get_liquor_amount(mfg, liquor):
     #return str(totalVol)+" ml"
     
     amounts = _inventory_db[(mfg, liquor)]
+    
     return amounts
 
 def get_liquor_inventory():
@@ -114,7 +115,7 @@ def convert_to_ml(amount):
     else:
 	  answer = 0
 	
-    return str(answer)
+    return answer
     
     
     
