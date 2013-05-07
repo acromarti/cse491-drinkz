@@ -69,6 +69,8 @@ def test_for_properly_named_saveload_script():
     assert os.path.exists('./bin/make-test-database')
 
 def test_bulk_load_bottle_types_badformat():
+  
+  # if n =1 means the data is good and n = 0 means data is bad then this workks
     db._reset_db()
 
     data = "#comment\n \na,b\nJohnnie Walker,Black Label,blended scotch\n\n"

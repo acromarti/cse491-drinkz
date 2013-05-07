@@ -245,6 +245,22 @@ def test_bulk_load_bottle_types_6():
     
     assert x == 0, x
     assert n == 1, n
+    
+def test_bulk_load_recipes_1():
+
+    #handles loading good recipe type file
+    #checks that the recipe exists in the file and throws an assertion if false
+    #Also read the file a add the recipes successfully which make x = 1
+    db._reset_db()
+
+    fp = open('test-data/reciepe-data-1.txt')
+    n = load_bulk_data.load_recipes(fp)
+    
+    x = db._check_recipe_exists('vongola')
+    
+    assert True, x
+    assert n == 1, n
+
 
 
 def test_script_load_bottle_types_1():
