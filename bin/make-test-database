@@ -1,0 +1,48 @@
+import sys
+import os
+import _mypath
+from drinkz.db import save_db, load_db
+from drinkz import db
+from drinkz import recipes
+
+def main(args):
+
+
+    db.add_bottle_type('Black Goose', 'vodka', 'flavored vodka')
+    db.add_to_inventory('Black Goose', 'vodka', '2 liter')
+
+    db.add_bottle_type('The Rossi', 'dry vermouth', 'vermouth')
+    db.add_to_inventory('The Rossi', 'dry vermouth', '42 oz')
+    
+    db.add_bottle_type('Cousin Herman\'s', 'moonshine', 'blended scotch')
+    db.add_to_inventory('Cousin Herman\'s', 'moonshine', '15 liter')
+    
+    db.add_bottle_type('David Walker', 'green label', 'blended scotch')
+    db.add_to_inventory('David Walker', 'green label', '100 ml')
+
+    r = recipes.Recipe('Kung Fu', [('blended scotch',
+                                            '4 oz')])
+    db.add_recipe(r)
+    r = recipes.Recipe('Aquaman', [('unflavored vodka', '6 oz'),
+                                     ('vermouth', '1.5 oz')])
+    db.add_recipe(r)
+    r = recipes.Recipe('Milkyway', [('orange juice',
+                                               '6 oz'),
+                                              ('vermouth',
+                                               '1.5 oz')])
+    db.add_recipe(r)
+    
+    #print "THIS IS THE BOTTLE TYPES!!!!!!........", db._bottle_types_db
+    
+    #print "THIS IS THE INVENTORY!!!!!!!!!!.......", db._inventory_db
+    
+    try:
+	filename = args[1]
+	
+    except IndexError:
+	filename = "database"
+
+    save_db(filename)
+
+if __name__ == '__main__':
+    main(sys.argv)

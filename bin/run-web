@@ -1,0 +1,34 @@
+import sys
+import socket
+import _mypath 
+import simplejson
+import random 
+from wsgiref.simple_server import make_server 
+from drinkz.app import SimpleApp 
+from drinkz import db 
+#from drinkz import recipes
+
+#If you created a file then type the name of the file
+#when you run run-web if not it will default to filename database
+
+def main(args):
+  
+    import random, socket
+    port = random.randint(8000, 9999)
+    
+    app = SimpleApp()
+    
+    try:
+      filename = args[1]
+    except IndexError:
+      filename = "database"
+      
+    db.load_db(filename)
+    
+    httpd = make_server('', port, app)
+    print "Serving on port %d..." % port
+    print "Try using a Web browser to go to http://%s:%d/" % (socket.getfqdn(), port)
+    httpd.serve_forever()
+ 
+if __name__ == '__main__':
+    main(sys.argv)
