@@ -1,0 +1,4 @@
+# this is use to test the load bulk recipes. This line is ignored
+vongola pure, water, 20 oz, OJ, 50 ml
+titan overpower, milk, 45 ml, apple juice, 34 oz
+frozen ukia, water, 60 ml, orange soda, 34 oz
