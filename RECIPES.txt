@@ -1,0 +1,16 @@
+Similar to the load bottle type and load inventory function, I created a load recipes in drinkz.load_bulk_data.py that only takes vaild recipe lines where the first value of the line is the name and the rest of the line is the recipe's ingredients.  Also I wrote a file in the bin directory called load-liquor-recipes which utilizes the function load_recipes.
+
+To run the test:
+
+  1. python load-liquor-recipes filename
+  2. Note: filename is an argument
+
+In the file that is loaded it must be formated where the recipe name and its ingredients are seperated by commas
+
+For Example
+
+  name1, ingredient 1, amount 1, ingredient 2, amount 2
+  name2, ingredient 1, amount 1, ingredient 2, amount 2
+  
+I used a test_bulk_load_recipes in test-drinkz to also test these functions
+
