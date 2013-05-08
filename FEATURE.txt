@@ -1,0 +1,30 @@
+Feature 1: Cost of Bottles
+
+John Doe wants to figure out the cost for his favorite
+drink. He wants to know the different costs of the specific bottle of alcohol
+called for in the recipe, the cost of the specific ingredients, and the
+specific cost of alternative bottles and ingredients of varied qualities.
+
+Data Component: 
+
+--Prices of favorite drink and specific bottles of alcohol
+--Prices for ingrdients in the recipe for the drinkz
+--Cost Alternatives
+
+Internal API
+
+--A way to store, retrieve and query the cost of a drinkz or recipe and the ingrdients.
+
+What can the user do:
+
+--Chose a favorite drink or recipe and is given the costs
+--Add other recipes to a list to compared with the chosen favortie drinkz to compare prices
+--Given the prices for ingredients, add or delete recipes for a drink to make it cheaper
+
+JSON-RPC Functions:
+
+--rpc_find_cost(nameOfDrinkz)
+--rpc_add_recipes()
+--rpc_find_cheap_recipe()
+--rpc_display_ingredient_cost()
+--rpc_add_or_delete_ingredient()
