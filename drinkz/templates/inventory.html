@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if inventory %}
+  <html>
+  <head>
+  <title>INVENTORY LIST</title>
+  <style type='text/css'>
+  h1 {color:green;}
+  body {font-size: 20px;}
+  </style>
+  <h1>Here Is What You Have In Stock</h1>
+   <style type='text/css'>
+  h2 {color:red;}
+  body {font-size: 15px;}
+  </style>
+  <h2>The items in Inventory are.......</h2>
+
+  <ul>
+  {% for (mfg, liquor, amount) in inventory %}
+    <li> {{ mfg }} - {{ liquor }} - {{ amount }} ml
+  {% endfor %}
+  </ul>
+ 
+{% else %}
+No inventory
+{% endif %}
+
+<hr>
+
+<h1>Add to inventory:</h1>
+<form action="inventory_add">
+Mfg: <input type="text" name="mfg"><p>
+Liquor: <input type="text" name="liquor"><p>
+Amount: <input type="text" name="amount">
+<input type="submit">
+</form>
+
+<A href='recipe.html'>Recipes</a>
+<p>
+<a href='liquor_types.html'>Liquor types</a>
+<p>
+<a href='calculate_liquid'> Calculate Liquid</a>
+<hr>
+<a href='adding_to_liquor_types'>Adding Liquor types</a>
+<p>
+<a href='adding_to_inventory'>Adding To Inventory</a>
+<p>
+<a href='adding_to_recipes'>Adding To Recipes</a>
+<hr>
+<a href='/logout'>Logging Out</a>
+<p>
+
+{% endblock content %}

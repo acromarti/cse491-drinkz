@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action='login1_process'>
+
+<html>
+<head>
+<title>Weclome to Log in</title>
+
+<style type='text/css'>
+
+h1 {color:green;}
+
+body {font-size: 20px;}
+</style>
+
+<h1>Welcome to Drinkz.app!!!!</h1>
+
+<style type='text/css'>
+h2 {color:red;}
+body {font-size: 15px;}
+
+</style>
+<h2>Please enter a vaild username</h2>
+
+<br><br>
+
+Username: <input type='text' name='name' size='15'>
+<input type='submit' value='log in'>
+
+</form>
+
+{% endblock %}

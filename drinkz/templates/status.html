@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if name1 %}
+
+  <html>
+  <head>
+  <title>Username Accepted!!!!</title>
+
+  <style type='text/css'>
+
+  h1 {color:green;}
+
+  body {font-size: 20px;}
+  </style>
+
+  <h1>Username Accepted!!!!</h1>
+
+  <style type='text/css'>
+  h2 {color:red;}
+  body {font-size: 15px;}
+
+  </style>
+  <h2>Here is your current status</h2>
+
+  <br><br>
+
+   Your login username is <b>{{ name1|e }}</b>;
+  <br><br>
+  your key is <b>{{ name1_key|e }}<b>.
+  
+{% else %}
+
+  <html>
+  <head>
+  <title>Logging out!!!!</title>
+
+  <style type='text/css'>
+
+  h1 {color:green;}
+
+  body {font-size: 20px;}
+  </style>
+
+  <h1>Thank You for Visting Drinkz.app!!!!</h1>
+
+  <style type='text/css'>
+  h2 {color:red;}
+  body {font-size: 15px;}
+
+  </style>
+  <h2>See you Again</h2>
+
+
+{% endif %}
+
+<br><br>
+<a href='./'>Return to index</a>
+
+{% endblock %}

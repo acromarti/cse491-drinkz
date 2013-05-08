@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if recipes %}
+<html>
+<head>
+<title>Recipe List</title>
+<style type='text/css'>
+h1 {color:green;}
+body {font-size: 20px;}
+</style>
+<h1>Time To Create The Strongest Shot</h1><ul>
+<style type='text/css'>
+h2 {color:red;}
+body {font-size: 20px;}
+</style>
+<h2>Here is the Ingredients</h2><ul>
+
+ <ul>
+ {% for r in recipes %}
+   <li> {{ r.name }}
+ {% endfor %}
+ </ul>
+{% else %}
+No recipes...
+{% endif %}
+
+Add to liquor types:
+<form action="recipes_add">
+Recipe name: <input type="text" name="name"><p>
+Ingredients: (type, amount) on each line --
+<br>
+<textarea name="ingredients" cols=40 rows=3></textarea>
+<input type="submit">
+</form>
+
+{% endblock content %}

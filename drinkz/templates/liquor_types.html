@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if liquor_types %}
+  <html>
+  <head>
+  <title>Liqour Types List</title>
+  <style type='text/css'>
+  h1 {color:green;}
+  body {font-size: 20px;}
+  </style>
+  <h1>Here Is The List of Shots</h1>
+  <style type='text/css'>
+  h2 {color:red;}
+  body {font-size: 20px;}
+  </style>
+  <h2>Don't Get Too Crazy lol</h2>
+
+  <ul>
+  {% for (mfg, liquor, typ) in liquor_types %}
+    <li> {{ mfg }} - {{ liquor }} - {{ typ }}
+  {% endfor %}
+ </ul>
+ 
+{% else %}
+No liquor types...
+{% endif %}
+
+<h1>Add to liquor types:</h1>
+<form action="liquor_types_add">
+Mfg: <input type="text" name="mfg"><p>
+Liquor: <input type="text" name="liquor"><p>
+Type: <input type="text" name="typ">
+<input type="submit">
+</form>
+
+<A href='recipe.html'>Recipes</a>
+<p>
+<a href='inventory.html'>Inventory</a>
+<p>
+<a href='calculate_liquid'> Calculate Liquid</a>
+<hr>
+<a href='adding_to_liquor_types'>Adding Liquor types</a>
+<p>
+<a href='adding_to_inventory'>Adding To Inventory</a>
+<p>
+<a href='adding_to_recipes'>Adding To Recipes</a>
+<p>
+<a href='/logout'>Logging Out</a>
+<hr>
+
+{% endblock content %}

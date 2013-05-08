@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<html>
+<head>
+<title>HOME</title>
+<style type='text/cc'>
+h1 {color:green;}
+body {font-size: 20px;}
+</style>
+<h1>Main Page of Drinkz!!!!</h1>
+<style type='text/css'>
+h2 {color:red;}
+body {font-size: 15px;}
+</style>
+<h2>Click on a link</h2>
+
+<A href='recipe.html'>Recipes</a>
+<p>
+<a href='liquor_types.html'>Liquor types</a>
+<p>
+<a href='inventory.html'>Inventory</a>
+<p>
+<a href='calculate_liquid'> Calculate Liquid</a>
+<hr>
+<a href='adding_to_liquor_types'>Adding Liquor types</a>
+<p>
+<a href='adding_to_inventory'>Adding To Inventory</a>
+<p>
+<a href='adding_to_recipes'>Adding To Recipes</a>
+<hr>
+<a href='/logout'>Logging Out</a>
+<p>
+
+<script>
+function myFunction()
+{
+alert("Hello! I am an alert box!");
+}
+</script>
+<input type="button" onclick="myFunction()" value="Show alert box" />
+
+{% endblock %}

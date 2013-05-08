@@ -1,0 +1,21 @@
+<html>---When base.html is inherited this is already avaliable 
+<body>---and is not changed
+
+test3.html
+
+{% extends "base.html" %} --test3 inherites from the base.html
+
+{% block content %}
+
+The text between block content and end block is displayed but changes accroding to whatever file is rendered
+
+{% endblock %}
+
+base.html:
+
+<html>
+<body>
+{% block content %}
+{% endblock %}
+</body>
+</html>
