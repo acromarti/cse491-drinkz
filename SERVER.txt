@@ -1,0 +1,23 @@
+Please make sure you are in env491 from cse491-drinkz: python bin/server.py
+
+While the server is running open a new window and run 
+python bin/testing_server.py hostname port GET page
+
+Example
+
+Server Parameters:
+GET and the destination
+Example: GET /[path]
+
+Available paths:
+Available paths:
+GET /
+GET /recipes.html
+GET /inventory.html
+GET /liquor_types.html
+GET /calculate_Liquid
+GET /adding_to_liquor_types
+GET /adding_to_inventory
+GET /adding_to_recipes
+
+
